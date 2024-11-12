@@ -23,3 +23,9 @@ result = sum_digits / letter_count
 return int(np.round(result))
 keep this function call here
 print(SearchingChallenge("Hello6 9World 2, Nic8e D7ay!")) # Expected Output: 2
+
+#Code to Create Tables
+CREATE TABLE MovieCatalog
+(Movie_Id CHAR(8) PRIMARY KEY,
+Title VARCHAR(150) CONSTRAINT TitleRequired NOT NULL
+Genre VARCHAR(150) CONSTRAINT TitleRequired NOT NULL);
