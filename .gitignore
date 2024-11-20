@@ -42,3 +42,18 @@ ON emp.ReportsTo = mgr.EmployeeID
 WHERE emp.ReportsTo IS NOT NULL
 ORDER BY mgr.Position ASC,
          emp.Position ASC;
+*didn't work 
+SELECT 
+    e.Position,
+    e.FirstName,
+    e.LastName,
+    m.Position AS ReportsToPosition
+FROM 
+    Employees e
+JOIN 
+    Employees m ON e.ReportsTo = m.EmployeeID
+
+ORDER BY 
+    m.Position          -- Order by the Position of the person they report to
+    e.Position ;         -- Then by the individual's Position in ascending order
+*worked
