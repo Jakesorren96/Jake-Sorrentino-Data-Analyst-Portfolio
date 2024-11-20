@@ -1,3 +1,4 @@
+#searching challenge
 import numpy as np
 
 def SearchingChallenge(strParam):
@@ -29,3 +30,15 @@ CREATE TABLE MovieCatalog
 (Movie_Id CHAR(8) PRIMARY KEY,
 Title VARCHAR(150) CONSTRAINT TitleRequired NOT NULL
 Genre VARCHAR(150) CONSTRAINT TitleRequired NOT NULL);
+
+#Employee Table Analysis
+SELECT emp.Position AS Position,
+ emp.FirstName AS FirstName,
+ emp.LastName AS LastName,
+ mgr.Position AS ReportsToPosition
+FROM maintable_A1GUR emp
+JOIN maintable_A1GUR mgr
+ON emp.ReportsTo = mgr.EmployeeID
+WHERE emp.ReportsTo IS NOT NULL
+ORDER BY mgr.Position ASC,
+         emp.Position ASC;
