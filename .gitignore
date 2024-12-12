@@ -1,4 +1,4 @@
-*searching challenge
+#SEARCHING CHALLENGE
 import numpy as np
 
 def SearchingChallenge(strParam):
@@ -25,13 +25,13 @@ return int(np.round(result))
 keep this function call here
 print(SearchingChallenge("Hello6 9World 2, Nic8e D7ay!")) # Expected Output: 2
 
-*Code to Create Tables
+#CODE TO CREATE TABLES
 CREATE TABLE MovieCatalog
 (Movie_Id CHAR(8) PRIMARY KEY,
 Title VARCHAR(150) CONSTRAINT TitleRequired NOT NULL
 Genre VARCHAR(150) CONSTRAINT TitleRequired NOT NULL);
 
-*Employee Table Analysis
+#EMPLOYEE TABLE ANALYSIS
 SELECT emp.Position AS Position,
  emp.FirstName AS FirstName,
  emp.LastName AS LastName,
@@ -56,5 +56,6 @@ JOIN
 ORDER BY 
     m.Position          -- Order by the Position of the person they report to
     e.Position ;         -- Then by the individual's Position in ascending order
+*worked
 
-*Credit Card Fraud 
+#CREDIT CARD FRAUD
