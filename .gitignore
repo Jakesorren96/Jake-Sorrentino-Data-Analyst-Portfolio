@@ -59,3 +59,102 @@ ORDER BY
 *worked
 
 #CREDIT CARD FRAUD
+We first read the data as a csv file, drop the obs attributes, and examine the structure of the dataset and a few of its records.
+GermanCredit<- read.csv("GermanCredit.csv")
+View(GermanCredit)
+head(GermanCredit)
+##   OBS. CHK_ACCT DURATION HISTORY NEW_CAR USED_CAR FURNITURE RADIO.TV EDUCATION
+## 1    1        0        6       4       0        0         0        1         0
+## 2    2        1       48       2       0        0         0        1         0
+## 3    3        3       12       4       0        0         0        0         1
+## 4    4        0       42       2       0        0         1        0         0
+## 5    5        0       24       3       1        0         0        0         0
+## 6    6        3       36       2       0        0         0        0         1
+##   RETRAINING AMOUNT SAV_ACCT EMPLOYMENT INSTALL_RATE MALE_DIV MALE_SINGLE
+## 1          0   1169        4          4            4        0           1
+## 2          0   5951        0          2            2        0           0
+## 3          0   2096        0          3            2        0           1
+## 4          0   7882        0          3            2        0           1
+## 5          0   4870        0          2            3        0           1
+## 6          0   9055        4          2            2        0           1
+##   MALE_MAR_or_WID CO.APPLICANT GUARANTOR PRESENT_RESIDENT REAL_ESTATE
+## 1               0            0         0                4           1
+## 2               0            0         0                2           1
+## 3               0            0         0                3           1
+## 4               0            0         1                4           0
+## 5               0            0         0                4           0
+## 6               0            0         0                4           0
+##   PROP_UNKN_NONE AGE OTHER_INSTALL RENT OWN_RES NUM_CREDITS JOB NUM_DEPENDENTS
+## 1              0  67             0    0       1           2   2              1
+## 2              0  22             0    0       1           1   2              1
+## 3              0  49             0    0       1           1   1              2
+## 4              0  45             0    0       0           1   2              2
+## 5              1  53             0    0       0           2   2              2
+## 6              1  35             0    0       0           1   1              2
+##   TELEPHONE FOREIGN RESPONSE
+## 1         1       0        1
+## 2         0       0        0
+## 3         0       0        1
+## 4         0       0        1
+## 5         0       0        0
+## 6         1       0        1
+summary(GermanCredit)
+##       OBS.           CHK_ACCT        DURATION       HISTORY     
+##  Min.   :   1.0   Min.   :0.000   Min.   : 4.0   Min.   :0.000  
+##  1st Qu.: 250.8   1st Qu.:0.000   1st Qu.:12.0   1st Qu.:2.000  
+##  Median : 500.5   Median :1.000   Median :18.0   Median :2.000  
+##  Mean   : 500.5   Mean   :1.577   Mean   :20.9   Mean   :2.545  
+##  3rd Qu.: 750.2   3rd Qu.:3.000   3rd Qu.:24.0   3rd Qu.:4.000  
+##  Max.   :1000.0   Max.   :3.000   Max.   :72.0   Max.   :4.000  
+##     NEW_CAR         USED_CAR       FURNITURE        RADIO.TV      EDUCATION   
+##  Min.   :0.000   Min.   :0.000   Min.   :0.000   Min.   :0.00   Min.   :0.00  
+##  1st Qu.:0.000   1st Qu.:0.000   1st Qu.:0.000   1st Qu.:0.00   1st Qu.:0.00  
+##  Median :0.000   Median :0.000   Median :0.000   Median :0.00   Median :0.00  
+##  Mean   :0.234   Mean   :0.103   Mean   :0.181   Mean   :0.28   Mean   :0.05  
+##  3rd Qu.:0.000   3rd Qu.:0.000   3rd Qu.:0.000   3rd Qu.:1.00   3rd Qu.:0.00  
+##  Max.   :1.000   Max.   :1.000   Max.   :1.000   Max.   :1.00   Max.   :1.00  
+##    RETRAINING        AMOUNT         SAV_ACCT       EMPLOYMENT   
+##  Min.   :0.000   Min.   :  250   Min.   :0.000   Min.   :0.000  
+##  1st Qu.:0.000   1st Qu.: 1366   1st Qu.:0.000   1st Qu.:2.000  
+##  Median :0.000   Median : 2320   Median :0.000   Median :2.000  
+##  Mean   :0.097   Mean   : 3271   Mean   :1.105   Mean   :2.384  
+##  3rd Qu.:0.000   3rd Qu.: 3972   3rd Qu.:2.000   3rd Qu.:4.000  
+##  Max.   :1.000   Max.   :18424   Max.   :4.000   Max.   :4.000  
+##   INSTALL_RATE      MALE_DIV     MALE_SINGLE    MALE_MAR_or_WID  CO.APPLICANT  
+##  Min.   :1.000   Min.   :0.00   Min.   :0.000   Min.   :0.000   Min.   :0.000  
+##  1st Qu.:2.000   1st Qu.:0.00   1st Qu.:0.000   1st Qu.:0.000   1st Qu.:0.000  
+##  Median :3.000   Median :0.00   Median :1.000   Median :0.000   Median :0.000  
+##  Mean   :2.973   Mean   :0.05   Mean   :0.548   Mean   :0.092   Mean   :0.041  
+##  3rd Qu.:4.000   3rd Qu.:0.00   3rd Qu.:1.000   3rd Qu.:0.000   3rd Qu.:0.000  
+##  Max.   :4.000   Max.   :1.00   Max.   :1.000   Max.   :1.000   Max.   :1.000  
+##    GUARANTOR     PRESENT_RESIDENT  REAL_ESTATE    PROP_UNKN_NONE 
+##  Min.   :0.000   Min.   :1.000    Min.   :0.000   Min.   :0.000  
+##  1st Qu.:0.000   1st Qu.:2.000    1st Qu.:0.000   1st Qu.:0.000  
+##  Median :0.000   Median :3.000    Median :0.000   Median :0.000  
+##  Mean   :0.052   Mean   :2.845    Mean   :0.282   Mean   :0.154  
+##  3rd Qu.:0.000   3rd Qu.:4.000    3rd Qu.:1.000   3rd Qu.:0.000  
+##  Max.   :1.000   Max.   :4.000    Max.   :1.000   Max.   :1.000  
+##       AGE        OTHER_INSTALL        RENT          OWN_RES     
+##  Min.   :19.00   Min.   :0.000   Min.   :0.000   Min.   :0.000  
+##  1st Qu.:27.00   1st Qu.:0.000   1st Qu.:0.000   1st Qu.:0.000  
+##  Median :33.00   Median :0.000   Median :0.000   Median :1.000  
+##  Mean   :35.55   Mean   :0.186   Mean   :0.179   Mean   :0.713  
+##  3rd Qu.:42.00   3rd Qu.:0.000   3rd Qu.:0.000   3rd Qu.:1.000  
+##  Max.   :75.00   Max.   :1.000   Max.   :1.000   Max.   :1.000  
+##   NUM_CREDITS         JOB        NUM_DEPENDENTS    TELEPHONE    
+##  Min.   :1.000   Min.   :0.000   Min.   :1.000   Min.   :0.000  
+##  1st Qu.:1.000   1st Qu.:2.000   1st Qu.:1.000   1st Qu.:0.000  
+##  Median :1.000   Median :2.000   Median :1.000   Median :0.000  
+##  Mean   :1.407   Mean   :1.904   Mean   :1.155   Mean   :0.404  
+##  3rd Qu.:2.000   3rd Qu.:2.000   3rd Qu.:1.000   3rd Qu.:1.000  
+##  Max.   :4.000   Max.   :3.000   Max.   :2.000   Max.   :1.000  
+##     FOREIGN         RESPONSE  
+##  Min.   :0.000   Min.   :0.0  
+##  1st Qu.:0.000   1st Qu.:0.0  
+##  Median :0.000   Median :1.0  
+##  Mean   :0.037   Mean   :0.7  
+##  3rd Qu.:0.000   3rd Qu.:1.0  
+##  Max.   :1.000   Max.   :1.0
+data.frame(min=sapply(GermanCredit[,-3], min, na.rm=TRUE),
+           mean=sapply(GermanCredit[,-3], mean, na.rm=TRUE))
+
