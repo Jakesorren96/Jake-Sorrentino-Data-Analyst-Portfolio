@@ -157,4 +157,93 @@ summary(GermanCredit)
 ##  Max.   :1.000   Max.   :1.0
 data.frame(min=sapply(GermanCredit[,-3], min, na.rm=TRUE),
            mean=sapply(GermanCredit[,-3], mean, na.rm=TRUE))
+****NFL
+SELECT * FROM public."standings ";
+SELECT
+    COUNT(points_for) AS count_points_for,
+    MIN(points_for) AS min_points_for,
+    MAX(points_for) AS max_points_for,
+    AVG(points_for) AS avg_points_for,
+    STDDEV(points_for) AS stddev_points_for,
 
+    COUNT(points_against) AS count_points_against,
+    MIN(points_against) AS min_points_against,
+    MAX(points_against) AS max_points_against,
+    AVG(points_against) AS avg_points_against,
+    STDDEV(points_against) AS stddev_points_against
+
+FROM public."standings ";
+SELECT
+	MIN(points_against) AS min_value_points_against,
+    PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY points_against) AS Q1_points_against,
+    PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY points_against) AS median_points_against,
+    PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY points_against) AS Q3_points_against,
+    MAX(points_against) AS max_value_points_against
+
+FROM public."standings ";
+
+SELECT 
+	CORR(points_for, wins) AS pftowin,
+	CORR(points_against, wins) AS patowin,
+	CORR(points_differential, wins) AS pdtowin,
+	CORR(margin_of_victory, wins) AS movtowin,
+	CORR(strength_of_schedule, wins) AS sostowin,
+	CORR(simple_rating, wins) AS srtowin,
+	CORR(offensive_ranking, wins) AS ortowin,
+	CORR(defensive_ranking, wins) AS drtowin
+
+	
+            
+FROM public."standings ";
+
+SELECT 
+	CORR(points_for, loss) AS pftolose,
+	CORR(loss, points_against) AS patolose,
+	CORR(points_differential, loss) AS pdtolose,
+	CORR(margin_of_victory, loss) AS movtolose,
+	CORR(strength_of_schedule, loss) AS sostolose,
+	CORR(simple_rating, loss) AS srtolose,
+	CORR(offensive_ranking, loss) AS ortolose,
+	CORR(loss, defensive_ranking) AS drtolose
+
+	
+            
+FROM public."standings ";
+SELECT
+    REGR_SLOPE(wins, points_differential) AS slope,
+    REGR_INTERCEPT(wins, points_differential) AS intercept
+
+FROM public."standings ";
+SELECT
+	CORR(wins, points_for) AS pftowin,
+	STDDEV(wins) AS std_wins,
+	STDDEV(points_for) AS stddev_points_for,
+	(pfttowin)* (std_wins/stddev_points_for) AS slope_pftowin
+
+WITH stats AS (
+    SELECT
+        AVG(points_differential) AS mean_pd,
+        AVG(loss) AS mean_loss,
+        STDDEV(points_differential) AS stddev_pd,
+        STDDEV(loss) AS stddev_loss,
+        CORR(loss, points_differential ) AS pdtolose
+    FROM public."standings "
+)
+SELECT
+    200 AS input_x,  
+    (pdtolose * (stddev_loss / stddev_pd) * 200 + (mean_loss - (pdtolose * (stddev_loss / stddev_pd) * mean_pd))) AS predicted_loss
+FROM stats;
+
+WITH stats AS (
+    SELECT
+        AVG(points_differential) AS mean_pd,
+        AVG(wins) AS mean_wins,
+        STDDEV(points_differential) AS stddev_pd,
+        STDDEV(wins) AS stddev_wins,
+        CORR(wins, points_differential ) AS pdtowin
+    FROM public."standings "
+)
+SELECT
+    -66 AS input_x,  
+    (pdtowin * (stddev_wins / stddev_pd) * -66 + (mean_wins - (pdtowin * (stddev_wins / stddev_pd) * mean_pd))) AS predicted_wins
+FROM stats;
